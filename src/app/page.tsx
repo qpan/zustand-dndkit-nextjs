@@ -21,7 +21,7 @@ import { useTaskStore } from "@/store";
 export default function Home() {
   const { tasks, backupTasks, clearTasks, addTask } = useTaskStore((state) => state);
 
-  const addTasks = () => {
+  const resetTasks = () => {
     const tasks = [
       { id: 1, title: "Add tests to homepage", pos: 1 },
       { id: 2, title: "Fix Styling in about section", pos: 2 },
@@ -60,8 +60,6 @@ export default function Home() {
 
   return (
     <div className="w-full h-full flex flex-col items-center mt-10">
-      <button onClick={addTasks}>Add Tasks</button>
-      <button onClick={clearTasks}>Clear Tasks</button>
       <h1 className="text-3xl font-semibold mb-7">My Tasks ✅</h1>
       <DndContext
         id="tasks"
@@ -70,7 +68,11 @@ export default function Home() {
         onDragEnd={handDragEnd}
         collisionDetection={closestCorners}
       >
-        <Input onSubmit={handleAddTask} />
+        <div className="flex gap-2 pb-7">
+          <Input onSubmit={handleAddTask} />
+          <button onClick={resetTasks} className="rounded-md py-2 px-3 bg-green-500 text-white">Reset Tasks</button>
+          <button onClick={clearTasks} className="rounded-md py-2 px-3 bg-red-500 text-white">Clear Tasks</button>
+        </div>
         <Column tasks={tasks} />
       </DndContext>
     </div>
